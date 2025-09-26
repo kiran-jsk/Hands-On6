@@ -60,7 +60,7 @@ total_user_plays_df = listening_logs_df.groupBy("user_id").agg(count("*").alias(
 genre_loyalty_df = (
     user_favorite_genre_df.join(total_user_plays_df, on="user_id", how="inner")
     .withColumn("loyalty_score", col("play_count") / col("total_plays"))
-    .filter(col("loyalty_score") > 0.8)
+    .filter(col("loyalty_score") <= 0.75)
 )
 
 genre_loyalty_df.select(
